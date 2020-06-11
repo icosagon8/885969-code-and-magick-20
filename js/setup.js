@@ -88,6 +88,12 @@ setupClose.addEventListener('click', function () {
   closePopup();
 });
 
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    closePopup();
+  }
+});
+
 var userNameInput = userDialog.querySelector('.setup-user-name');
 
 userNameInput.addEventListener('invalid', function () {
@@ -109,19 +115,15 @@ var wizardCoatInput = userDialog.querySelector('input[name="coat-color"]');
 var wizardEyesInput = userDialog.querySelector('input[name="eyes-color"]');
 var fireballColorInput = userDialog.querySelector('input[name="fireball-color"]');
 
-var changeColor = function (colors, element, elementInput) {
+var changeColor = function (colors, element, elementInput, cssProperty) {
   element.addEventListener('click', function () {
     var color = getRandom(colors);
-    element.style.fill = color;
+    element.style[cssProperty] = color;
     elementInput.value = color;
   });
 };
 
-changeColor(WIZARD_COAT_COLORS, wizardCoat, wizardCoatInput);
-changeColor(WIZARD_EYES_COLORS, wizardEyes, wizardEyesInput);
+changeColor(WIZARD_COAT_COLORS, wizardCoat, wizardCoatInput, 'fill');
+changeColor(WIZARD_EYES_COLORS, wizardEyes, wizardEyesInput, 'fill');
+changeColor(FIREBALL_COLOR, fireballColor, fireballColorInput, 'backgroundColor');
 
-fireballColor.addEventListener('click', function () {
-  var color = getRandom(FIREBALL_COLOR);
-  fireballColor.style.backgroundColor = color;
-  fireballColorInput.value = color;
-});
