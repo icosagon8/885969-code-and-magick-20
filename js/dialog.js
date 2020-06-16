@@ -19,6 +19,11 @@
     openPopup();
   };
 
+  var resetsPopupPosition = function () {
+    userDialog.style.top = 'calc(50% - ' + (userDialog.offsetHeight / 2) + 'px)';
+    userDialog.style.left = '50%';
+  };
+
   var openPopup = function () {
     userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
@@ -27,6 +32,7 @@
   };
 
   var closePopup = function () {
+    resetsPopupPosition();
     userDialog.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
     setupOpen.addEventListener('click', onSetupOpenClick);
@@ -43,19 +49,12 @@
 
   setupOpen.addEventListener('keydown', onSetupOpenPressEnter);
 
-  var resetsPopupPosition = function () {
-    userDialog.style.top = 'calc(50% - ' + (userDialog.offsetHeight / 2) + 'px)';
-    userDialog.style.left = '50%';
-  };
-
   setupClose.addEventListener('click', function () {
-    resetsPopupPosition();
     closePopup();
   });
 
   setupClose.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
-      resetsPopupPosition();
       closePopup();
     }
   });
