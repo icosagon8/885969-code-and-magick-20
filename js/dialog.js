@@ -59,6 +59,17 @@
     }
   });
 
+  var successHandler = function () {
+    closePopup();
+  };
+
+  var form = userDialog.querySelector('.setup-wizard-form');
+  var submitHandler = function (evt) {
+    window.backend.save(new FormData(form), successHandler, window.util.errorHandler);
+    evt.preventDefault();
+  };
+  form.addEventListener('submit', submitHandler);
+
   var dialogHandle = userDialog.querySelector('.upload');
 
   dialogHandle.addEventListener('mousedown', function (evt) {
