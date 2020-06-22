@@ -1,45 +1,39 @@
 'use strict';
 (function () {
+  var TIMEOUT_IN_MS = 10000;
   var StatusCode = {
     OK: 200
   };
-  var TIMEOUT_IN_MS = 10000;
 
-  var handlesError = function (xhttpr, load, error) {
-    xhttpr.addEventListener('load', function () {
-      if (xhttpr.status === StatusCode.OK) {
-        load(xhttpr.response);
+  var connectsToServer = function (load, error, method, URL, info) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', function () {
+      if (xhr.status === StatusCode.OK) {
+        load(xhr.response);
       } else {
-        error('Статус ответа: ' + xhttpr.status + ' ' + xhttpr.statusText);
+        error('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
-    xhttpr.addEventListener('error', function () {
+    xhr.addEventListener('error', function () {
       error('Произошла ошибка соединения');
     });
-    xhttpr.addEventListener('timeout', function () {
-      error('Запрос не успел выполниться за ' + xhttpr.timeout + 'мс');
+    xhr.addEventListener('timeout', function () {
+      error('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhttpr.timeout = TIMEOUT_IN_MS;
+    xhr.timeout = TIMEOUT_IN_MS;
+    xhr.open(method, URL);
+    xhr.send(info);
   };
 
   var save = function (data, onLoad, onError) {
-    var URL = 'https://javascript.pages.academy/code-and-magick';
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    handlesError(xhr, onLoad, onError);
-    xhr.open('POST', URL);
-    xhr.send(data);
+    connectsToServer(onLoad, onError, 'POST', 'https://javascript.pages.academy/code-and-magick', data);
   };
 
 
   var load = function (onLoad, onError) {
-    var URL = 'https://javascript.pages.academy/code-and-magick/data';
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    handlesError(xhr, onLoad, onError);
-    xhr.open('GET', URL);
-    xhr.send();
+    connectsToServer(onLoad, onError, 'GET', 'https://javascript.pages.academy/code-and-magick/data');
   };
 
   window.backend = {

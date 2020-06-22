@@ -65,8 +65,8 @@
 
   var form = userDialog.querySelector('.setup-wizard-form');
   var submitHandler = function (evt) {
-    window.backend.save(new FormData(form), successHandler, window.util.errorHandler);
     evt.preventDefault();
+    window.backend.save(new FormData(form), successHandler, window.util.errorHandler);
   };
   form.addEventListener('submit', submitHandler);
 
