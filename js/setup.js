@@ -1,6 +1,8 @@
 'use strict';
 (function () {
   var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+  var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+  var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var userDialog = window.dialog.userDialog;
   var userNameInput = userDialog.querySelector('.setup-user-name');
 
@@ -31,7 +33,7 @@
     });
   };
 
-  changeColor(window.similarWizards.WIZARD_COAT_COLORS, wizardCoat, wizardCoatInput, 'fill');
-  changeColor(window.similarWizards.WIZARD_EYES_COLORS, wizardEyes, wizardEyesInput, 'fill');
+  changeColor(WIZARD_COAT_COLORS, wizardCoat, wizardCoatInput, 'fill');
+  changeColor(WIZARD_EYES_COLORS, wizardEyes, wizardEyesInput, 'fill');
   changeColor(FIREBALL_COLOR, fireballColor, fireballColorInput, 'backgroundColor');
 })();
