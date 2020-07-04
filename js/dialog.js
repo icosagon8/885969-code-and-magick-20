@@ -121,6 +121,7 @@
   });
 
   window.dialog = {
-    userDialog: userDialog
+    userDialog: userDialog,
+    setupOpen: setupOpen
   };
 })();
